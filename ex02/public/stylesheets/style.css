@@ -1,8 +1,25 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+*{
+    font-family: "Jua", sans-serif;
 }
 
-a {
-  color: #00B7FF;
+.bottom{
+    text-align: center;
+    margin: 100px 0px;
 }
+h1{
+    text-align: center;
+    padding: 20px 0px;
+}
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+
+  .title{
+    color:rgb(251, 94, 121);
+    font-size: 15px;
+  }

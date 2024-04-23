@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
+*{
+  font-family: "Gugi", sans-serif;
+}
+
+body {
+  padding: 0px;
+  font-family: "Gugi", sans-serif;
+}
+
+a {
+  color: #08b5fa;
+}
+.div_page{
+  width: 960px;
+  margin: 0px auto;
+  background-color: rgb(161, 210, 247);
+  color: rgb(78, 116, 255);
+}
+.div_bottom{
+  text-align: center;
+}
+.div_menu .item{
+  margin: 0px 10px;
+}
+.div_menu{
+  margin: 20px 0px;
+}
+.div_home{
+  margin: 50px 0px;
+}
+h1{
+  text-align: center;
+}
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.title, .price{
+  font-size: 20px;
+  color: grey;
+}

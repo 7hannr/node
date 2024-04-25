@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var db =require('../db');
+var db = require('../db');
 
-/* GET home page. */
+/* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: '회사소개',pageName:'home.ejs' });
+  res.send('respond with a resource');
 });
 
 //로그인page
@@ -37,5 +37,3 @@ router.post('/login',function(req,res){
 });
 
 module.exports = router;
-
-

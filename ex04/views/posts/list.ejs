@@ -1,0 +1,41 @@
+<h1><%=title%></h1>
+<div class="text-end mb-3" id="div-write" style="display: none;">
+    <a href="/posts/insert"><button class="btn btn-dark">글쓰기</button></a>
+</div>
+<div id="div_post"></div>
+<script id="temp_post" type="X-handlebars-template">
+    <table class="table-table stripted table hover">
+        <tr>
+            <td>ID</td><td>Title</td><td>Writer</td><td>Date</td>
+        </tr>
+        {{#each .}}
+            <tr>
+                <td>{{pid}}</td>
+                <td><a href="/posts/read?pid={{pid}}">{{title}}</a></td>
+                <td>{{writer}}</td>
+                <td>{{fdate}}</td>
+            </tr>
+        {{/each}}
+    </table>
+</script>
+<script>
+    getData();
+    if(uid){
+        $("#div-write").show();
+    }else{
+        $("#div-write").hide();
+    }
+    function getData(){
+        $.ajax({
+            type:"get",
+            url:"/posts/list.json",
+            dataType:"json",
+            success:function(data){
+                console.log(data);
+                const temp=Handlebars.compile($("#temp_post").html());
+                $("#div_post").html(temp(data));
+            }
+
+        })
+    }
+</script>

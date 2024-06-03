@@ -1,0 +1,97 @@
+<h1><%=title%></h1>
+<div class="row">
+    <div class="col-6 col-md-3">
+        <form name="frm">
+            <div class="input-group">
+                <input name="query" class="form-control" placeholder="검색어">
+                <button class="btn btn-dark">검색</button>
+            </div>
+        </form>
+    </div>
+    <div class="col pt-2">
+        <span id="total"></span>
+    </div>
+    <div class="col text-end mb-3" id="div-write" style="display:none;">
+    <a href="/posts/insert"><button class="btn btn-dark">글쓰기</button></a>
+</div>
+</div>
+<div id="div_posts"></div>
+<div class="text-center">
+    <button id="prev" class="btn btn-dark btn-sm">이전</button>
+    <span id="page" class="mx-2">1</span>
+    <button id="next" class="btn btn-dark btn-sm">다음</button>
+</div>
+<script id="temp_posts" type="x-handlebars-template">
+    <table class="table table-striped table-hover">
+        <tr>
+            <td>ID</td><td>Title</td><td>Writer</td><td>Date</td>
+        </tr>    
+        {{#each documents}}
+            <tr>
+                <td>{{pid}}</td>
+                <td><a href="/posts/read?pid={{pid}}">{{title}}</a></td>
+                <td>{{writer}}</td>
+                <td>{{fdate}}</td>
+            </tr>    
+        {{/each}}
+    </table>    
+</script>
+<script>
+    let page=1;
+    const size=5;
+    let query="";
+
+    $(frm).on("submit",function(e){
+        e.preventDefault();
+        query=$(frm.query).val();
+        page=1;
+        getData();
+    });
+
+    //이전 버튼을 클릭한 경우
+    $("#prev").on("click", function(){
+        page--;
+        getData();
+    });
+
+    //다음 버튼을 클릭한 경우
+    $("#next").on("click", function(){
+        page++;
+        getData();
+    });
+
+    getData();
+    if(uid){
+        $("#div-write").show();
+    }else{
+        $("#div-write").hide();
+    }
+
+    function getData(){
+        $.ajax({
+            type:"get",
+            url:"/posts/list.json",
+            dateType:"json",
+            data:{page:page, size,query},
+            success:function(data){
+                console.log(data);
+                const temp=Handlebars.compile($("#temp_posts").html());
+                $("#div_posts").html(temp(data));
+
+                $("#total").html(`<b>${data.total}</b>건`);
+                const last=Math.ceil(data.total/size);
+                $("#page").html(`${page}/${last}`);
+                if(page==1){
+                    $("#prev").attr("disabled", true);
+                }else{
+                    $("#prev").attr("disabled", false);
+                }
+                if(page==last){
+                    $("#next").attr("disabled", true);
+                }else{
+                    $("#next").attr("disabled", false);
+                }
+            }
+        })
+    }
+</script>
